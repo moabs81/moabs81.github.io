@@ -18,3 +18,10 @@ Test Data is found in /src/testData
 index.html at the root is a path for the Github free hosting to get to /dist
 
 I did write the webpack configurations myself and at the time I was really proud of that...
+
+Future enhancements as of 12/7/2017 include:
+-	completion of sort functions
+-	final touches on UI
+-	inclusion of a JavaScript test framework with unit tests across all modules
+-	introduction of service worker to manage cache
+-	re-factoring of application to make use of React.js library
