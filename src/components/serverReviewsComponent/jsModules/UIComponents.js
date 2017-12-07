@@ -1,18 +1,18 @@
 'use strict';
 require('../lessStyles/serverReviews.less');
 //const updateViewStateMod = require('./updateViewState'), updateViews = updateViewStateMod.updateViewState();
-exports.renderViews = function() {
+exports.UIComponents = function() {
     //************************THE MAIN CONTAINER********************************************************************
     const buildTableContainer = function(propsObj, stateObj, cbReturn) {
         const headerProps = { //my children's properties
             headerText: propsObj.headerText,
             whichHeader: stateObj.whichHeader,
             whichDirection: stateObj.whichDirection,
-            targetDiv: '.tableContainer'
+            targetDiv: 'tableContainer'
         };
         const bodyProps = { //my children's properties
             data: stateObj.data,
-            targetDiv: '.tableContainer'
+            targetDiv: 'tableContainer'
         };
         $('#' + propsObj.targetDiv).append( //my UI responsibilities
             '<div class="componentContainer">' +
@@ -42,8 +42,8 @@ exports.renderViews = function() {
                 targetDiv: 'tCol' + index
             };
             const buttonProps = { //my children's properties
-                //(function() {if (propsObj.whichDirection == index) { return true } else { return false }})()
-                whichHeader: propsObj.whichDirection == index ? true : false,
+                //(function() {if (propsObj.whichDirection == index) { return true } else { return false }})()                
+                whichHeader: propsObj.whichHeader == index ? true : false,
                 whichDirection: propsObj.whichDirection,
                 targetDiv: 'tCol' + index
             };
@@ -66,7 +66,7 @@ exports.renderViews = function() {
         cbReturn('done building the header text'); //all done
     }; //************ END buildTHeaderText ****************************************    
     const buildTHeaderButton = function(propsObj, cbReturn) {
-        propsObj.activeSort = 'inactive'; //my children's properties *******THIS NEEDS TO BE OPTIMIZED
+        propsObj.activeSort = 'inactive'; //my children's properties *******THIS NEEDS TO BE OPTIMIZED        
         if (propsObj.whichHeader == true) {
             propsObj.activeSort = ' ' + propsObj.whichDirection;
         };
@@ -75,7 +75,7 @@ exports.renderViews = function() {
             '<span class = "tHeaderButtonSpan' + propsObj.activeSort + '">' + propsObj.activeSort + '</span>' +
             '</div>'
         );
-        cbReturn('done'); //all done
+        cbReturn('done building the header sort button'); //all done
     }; //************ END buildTHeaderButton ****************************************    
     //************************END OF THE HEADER*******************************************************************    
     //************************THE BODY********************************************************************
@@ -100,64 +100,28 @@ exports.renderViews = function() {
         cbReturn('done building the body content'); //all done
     }; //************ END buildTBodyContainer ****************************************    
     const buildTBodyRow = function(propsObj, cbReturn) {
-
-        $('.' + propsObj.targetDiv).append(
+        $('.' + propsObj.targetDiv).append( //my UI responsibilities
             '<div class="tBodyRow tBodyContentRow">' +
             '<div class="tBodyCell tCol0"><div class="tBodyCol0">' + propsObj.path + '</div></div>' +
             '<div class="tBodyCell tCol1"><div class="tBodyCol1Title">' + propsObj.name + '</div><div class="tBodyCol1Body">' + propsObj.steps + '</div></div>' +
             '</div>'
-        )
-        cbReturn('done');
+        );
+        cbReturn('done building the content row'); //all done
     }; //************ END BuildTBodyRow ****************************************
     const buildTBodyMoreButton = function(propsObj, cbReturn) {
-            $('.' + propsObj.targetDiv).append(
+            $('.' + propsObj.targetDiv).append( //my UI responsibilities
                 '<div class="tBodyRow tBodyButtonRow">' +
                 '<div class="tBodyCell tCol0"></div>' +
                 '<div class="tBodyCell tCol1">' +
                 '</div>' +
                 '</div>'
             );
-            $('.tBodyButtonRow .tCol1').append('<button type="button" id="getMoreButton"><span></span></button>');
-            cbReturn('done');
+            $('.tBodyButtonRow .tCol1').append('<button type="button" id="getMoreButton"><span></span>More!</button>');
+            cbReturn('done building the content more button'); //all done
         }
-        //************************END OF THE BODY********************************************************************
-    const eventListenersOnTableContainer = function(propsObj, cbReturn) {
-        const setInitialView = function() {
-            $('.tBodyContentRow').slice(0, 4).fadeIn('fast');
-            setButtonEvent();
-            setSortEvent();
-        }
-
-        const setSortEvent = function() {
-            for (var i = 0; i < document.getElementsByClassName('tHeaderButtonSpan').length; i++) {
-                document.getElementsByClassName('tHeaderButton')[i].addEventListener('click', function(e) {
-                    componentFunctions.sortEvent(e);
-                });
-            }
-        }
-
-        const doStuffWithSort = function(e) {
-            console.log(e);
-            console.log(e.srcElement.classList[1]);
-            console.log(e.path[2].childNodes[0].innerText);
-        }
-
-        const setButtonEvent = function() {
-            document.getElementById('getMoreButton').addEventListener('click', function(e) {
-                e.preventDefault();
-                $('.tBodyContentRow:hidden').slice(0, 4).fadeIn('slow');
-                if ($('.tBodyContentRow:hidden').length == 0) {
-                    console.log('no more hidden!');
-                    $('.tBodyButtonRow .tCol1').html('<button type="button" id="getNoMoreButton">No More!</button>');
-                }
-            })
-        }
-        setInitialView();
-        cbReturn('done');
-    }
+        //************************END OF THE BODY********************************************************************    
     const returnMethods = {
-        buildTableContainer: buildTableContainer,
-        eventListenersOnTableContainer: eventListenersOnTableContainer
+        buildTableContainer: buildTableContainer
     };
     return returnMethods;
 }
