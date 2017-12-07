@@ -1,114 +1,104 @@
 'use strict';
-require('../lessStyles/tableComponentStyles.less');
-const functionalityMod = require('./functionality'),
-    componentFunctions = functionalityMod.functionality();
+require('../lessStyles/serverReviews.less');
+//const updateViewStateMod = require('./updateViewState'), updateViews = updateViewStateMod.updateViewState();
 exports.renderViews = function() {
     //************************THE MAIN CONTAINER********************************************************************
     const buildTableContainer = function(propsObj, stateObj, cbReturn) {
-        var tHeaderContainerPropsObj = {},
-            tBodyContainerPropsObj = {};
-        tHeaderContainerPropsObj.headerText = propsObj.headerText;
-        tHeaderContainerPropsObj.whichHeader = stateObj.whichHeader;
-        tHeaderContainerPropsObj.whichDirection = stateObj.whichDirection;
-        tHeaderContainerPropsObj.targetDiv = 'tableContainer';
-        tBodyContainerPropsObj.targetDiv = 'tableContainer';
-        tBodyContainerPropsObj.data = stateObj.data;
-        $('#' + propsObj.targetDiv).append(
+        const headerProps = { //my children's properties
+            headerText: propsObj.headerText,
+            whichHeader: stateObj.whichHeader,
+            whichDirection: stateObj.whichDirection,
+            targetDiv: '.tableContainer'
+        };
+        const bodyProps = { //my children's properties
+            data: stateObj.data,
+            targetDiv: '.tableContainer'
+        };
+        $('#' + propsObj.targetDiv).append( //my UI responsibilities
             '<div class="componentContainer">' +
             '<div class="componentContainerTitle">' + propsObj.componentTitle + '</div>' +
             '<div class="tableContainer">' +
             '</div>' +
             '</div>'
         );
-        buildTHeaderContainer(tHeaderContainerPropsObj, function(result) {
-            console.log(result + ' with building the header container');
+        buildTHeaderContainer(headerProps, function(result) { //call my children
+            console.log(result);
         });
-        buildTBodyContainer(tBodyContainerPropsObj, function(result) {
-            console.log(result + ' with building the body container');
+        buildTBodyContainer(bodyProps, function(result) { //call my children
+            console.log(result);
         });
-        cbReturn('done');
+        cbReturn('Done building table container.'); //all done
     };
-    //************************END OF THE MAIN CONTAINER********************************************************************
-    //******************
-    //******************
-    //******************
+    //************************END OF THE MAIN CONTAINER********************************************************************    
     //************************THE HEADER********************************************************************
     const buildTHeaderContainer = function(propsObj, cbReturn) {
-        var tHeaderTextPropsObj = {},
-            tHeaderButtonPropsObj = {};
-        $('.' + propsObj.targetDiv).append(
+        $('.' + propsObj.targetDiv).append( //my UI responsibilities
             '<div class="tHeaderRow">' +
             '</div>'
         );
-        propsObj.headerText.forEach(function(element, index) {
-            tHeaderTextPropsObj.headerText = element;
-            tHeaderTextPropsObj.targetDiv = 'tCol' + index;
-            tHeaderButtonPropsObj.targetDiv = 'tCol' + index;
-            tHeaderButtonPropsObj.whichDirection = propsObj.whichDirection;
-            if (propsObj.whichHeader == index) {
-                tHeaderButtonPropsObj.whichHeader = true;
-            } else {
-                tHeaderButtonPropsObj.whichHeader = false;
+        propsObj.headerText.forEach(function(element, index) { //loop through my headerText property            
+            const textProps = { //my children's properties
+                headerText: element,
+                targetDiv: 'tCol' + index
             };
-
-            $('.tHeaderRow').append('<div class="tHeaderCell tCol' + index + '"></div>');
-            buildTHeaderText(tHeaderTextPropsObj, function(result) {
-                console.log(index + ' - ' + result + ' with building the table header text');
+            const buttonProps = { //my children's properties
+                //(function() {if (propsObj.whichDirection == index) { return true } else { return false }})()
+                whichHeader: propsObj.whichDirection == index ? true : false,
+                whichDirection: propsObj.whichDirection,
+                targetDiv: 'tCol' + index
+            };
+            $('.tHeaderRow').append('<div class="tHeaderCell tCol' + index + '"></div>'); //my UI responsibilities            
+            buildTHeaderText(textProps, function(result) { //call my children
+                console.log(index + ' - ' + result);
             });
-            buildTHeaderButton(tHeaderButtonPropsObj, function(result) {
-                console.log(index + ' - ' + result + ' with building the table header button');
+            buildTHeaderButton(buttonProps, function(result) { //call my children
+                console.log(index + ' - ' + result);
             });
         });
-        cbReturn('done');
-    }; //************ END buildTHeaderContainer ****************************************
-    //******************
+        cbReturn('done building the header container'); //all done
+    }; //************ END buildTHeaderContainer ****************************************    
     const buildTHeaderText = function(propsObj, cbReturn) {
-        $('.' + propsObj.targetDiv).append(
+        $('.' + propsObj.targetDiv).append( //my UI Responsibilities
             '<div class="tHeadertext">' +
             propsObj.headerText +
             '</div>'
         );
-        cbReturn('done');
+        cbReturn('done building the header text'); //all done
     }; //************ END buildTHeaderText ****************************************    
     const buildTHeaderButton = function(propsObj, cbReturn) {
-        console.log(propsObj.whichDirection);
-        console.log(propsObj.whichHeader);
-        var activeSort = ' inactive';
+        propsObj.activeSort = 'inactive'; //my children's properties *******THIS NEEDS TO BE OPTIMIZED
         if (propsObj.whichHeader == true) {
-            activeSort = ' ' + propsObj.whichDirection;
+            propsObj.activeSort = ' ' + propsObj.whichDirection;
         };
-        $('.' + propsObj.targetDiv).append(
+        $('.' + propsObj.targetDiv).append( //my UI responsibilities
             '<div class="tHeaderButton">' +
-            '<span class = "tHeaderButtonSpan' + activeSort + '">' + activeSort + '</span>' +
+            '<span class = "tHeaderButtonSpan' + propsObj.activeSort + '">' + propsObj.activeSort + '</span>' +
             '</div>'
         );
-        cbReturn('done');
+        cbReturn('done'); //all done
     }; //************ END buildTHeaderButton ****************************************    
-    //************************END OF THE HEADER*******************************************************************
-    //******************
-    //******************
-    //******************
+    //************************END OF THE HEADER*******************************************************************    
     //************************THE BODY********************************************************************
     const buildTBodyContainer = function(propsObj, cbReturn) {
-        var tBodyRowPropsObj = {},
-            tBodyMoreButtonPropsObj = {};
-        tBodyMoreButtonPropsObj.targetDiv = propsObj.targetDiv;
-        propsObj.data.forEach(function(element, index) {
-            tBodyRowPropsObj.targetDiv = propsObj.targetDiv;
-            tBodyRowPropsObj.path = element.path;
-            tBodyRowPropsObj.name = element.name;
-            tBodyRowPropsObj.steps = element.steps;
-            buildTBodyRow(tBodyRowPropsObj, function(result) {
-                console.log(index + ' - ' + result + ' with building the body content rows');
-            })
-            tBodyRowPropsObj = {};
+        const buttonProps = { //my children's properties
+            targetDiv: propsObj.targetDiv
+        };
+        propsObj.data.forEach(function(element, index) { //loop through my data property            
+            const rowProps = { //my children's properties
+                targetDiv: propsObj.targetDiv,
+                path: element.path,
+                name: element.name,
+                steps: element.steps
+            };
+            buildTBodyRow(rowProps, function(result) { //call my chlidren
+                console.log(index + ' - ' + result);
+            });
         });
-        buildTBodyMoreButton(tBodyMoreButtonPropsObj, function(result) {
-            console.log(result + ' with building the button');
-        })
-        cbReturn('done');
-    }; //************ END buildTBodyContainer ****************************************
-    //******************
+        buildTBodyMoreButton(buttonProps, function(result) { //call my children
+            console.log(result);
+        });
+        cbReturn('done building the body content'); //all done
+    }; //************ END buildTBodyContainer ****************************************    
     const buildTBodyRow = function(propsObj, cbReturn) {
 
         $('.' + propsObj.targetDiv).append(

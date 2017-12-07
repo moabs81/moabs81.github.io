@@ -1,6 +1,8 @@
 'use strict';
 const renderViewsMod = require('./renderViews'),
     renderViews = renderViewsMod.renderViews();
+const functionalityMod = require('./functionality'),
+    componentFunctions = functionalityMod.functionality();
 exports.controller = function() {
     const mockAPICall = function() { //mock API call - would really fetch data, but in this case is importing a test data module
         const dataMod = require('../../../testData/bddDatav4'),
@@ -43,9 +45,42 @@ exports.controller = function() {
         cbReturn(dataArr);
     };
 
+    const sortDataArr = function(dataArr, sortCol, sortOrd, cbReturn) {
+
+        const sortAsc = function() {
+            console.log('ASC - sorting ' + sortCol + ' in order: ' + sortOrd);
+            dataArr.sort(function(firstEl, secondEl) {
+                if (firstEl[sortCol] < secondEl[sortCol]) {
+                    return -1;
+                };
+                if (firstEl[sortCol] > secondEl[sortCol]) {
+                    return 1;
+                };
+                return 0;
+            })
+        };
+        const sortDec = function() {
+            console.log('DEC - sorting ' + sortCol + ' in order: ' + sortOrd);
+            dataArr.sort(function(firstEl, secondEl) {
+                if (firstEl[sortCol] > secondEl[sortCol]) {
+                    return -1;
+                };
+                if (firstEl[sortCol] < secondEl[sortCol]) {
+                    return 1;
+                };
+                return 0;
+            })
+        };
+
+        sortOrd == 'asc' ? sortAsc() : sortDec();
+
+        cbReturn(dataArr);
+    };
+
     const buildTableContainer = function(targetDiv, cbReturn) {
         var tableContainerpropsObj = {},
-            tableContainerstateObj = {};
+            tableContainerstateObj = {},
+            eventListenersPropsObj = {};
         //add title to propsObj
         tableContainerpropsObj.componentTitle = 'BDD Scenarios';
         //add headers to propsObj        
@@ -53,16 +88,22 @@ exports.controller = function() {
         //add targetDiv to propsObj
         tableContainerpropsObj.targetDiv = targetDiv;
         //add sort state to stateObj
-        tableContainerstateObj.whichHeader = 0;
-        tableContainerstateObj.whichDirection = 'ASC';
+        tableContainerstateObj.whichHeader = 1;
+        tableContainerstateObj.whichDirection = 'asc';
         //add dataSet to stateObj
         setState(function(dataArr) {
             tableContainerstateObj.data = dataArr;
         });
         renderViews.buildTableContainer(tableContainerpropsObj, tableContainerstateObj, function(result) {
             console.log(result + ' with building the appliation container');
+            renderViews.eventListenersOnTableContainer(eventListenersPropsObj, function(result) {
+                console.log(result + ' with setting events');
+            })
         });
-        cbReturn(tableContainerpropsObj, tableContainerstateObj);
+        cbReturn('done');
+        sortDataArr(tableContainerstateObj.data, 'path', 'dec', function(result) {
+            console.log('sorted, baby');
+        })
     };
 
 
