@@ -2,7 +2,9 @@ This project is a simple functional mock up of a conceptual component for a smal
 
 Compoments
     Page Layout Component    
+        Page Layout is esssentially a wrapper for the presentation of the component
     App Component
+        Contained within page's contentContainer div
     
 App Modules
     controlViewState = the app controller

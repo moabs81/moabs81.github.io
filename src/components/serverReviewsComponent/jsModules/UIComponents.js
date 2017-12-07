@@ -72,7 +72,7 @@ exports.UIComponents = function() {
         };
         $('.' + propsObj.targetDiv).append( //my UI responsibilities
             '<div class="tHeaderButton">' +
-            '<span class = "tHeaderButtonSpan' + propsObj.activeSort + '">' + propsObj.activeSort + '</span>' +
+            '<span class = "tHeaderButtonSpan' + propsObj.activeSort + '">' + propsObj.activeSort + ' placeholder</span>' +
             '</div>'
         );
         cbReturn('done building the header sort button'); //all done

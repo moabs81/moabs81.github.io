@@ -1,3 +1,70 @@
+//@floatDivColor : rgba(0, 0, 0, 0.6);
+@menuColor: #009DB4;
+@menuColor1:#663818;
+@rustColor: #B56357;
+@menuTextColor: #E3C286;
+@menuTextColor1: #8C6C58;
+@floatDivColor : rgba(255, 255, 255, 0.45);
+
+#menuTransition() {
+    -webkit-transition: 0.3s;
+}
+
+#backgroundImg() {
+    background-image: url('./imgs/darkbackground.jpg');
+    background-attachment: fixed;
+    background-position: right top;
+}
+
+#floatContainer() {
+    width: 70%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    padding-left: 5%;
+    padding-right: 5%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    background-color: @floatDivColor;
+}
+
 body{
+    #backgroundImg;
     margin: 0;
+    .titleContainer{
+        z-index: 100;
+        position: fixed;
+        width: 100%;
+        height: 125px;
+        background-color: rgba(0, 0, 0, 0.0);
+        #menuTransition;
+        .menu-content {
+            display: inline-block;
+        }
+        .left-title {
+            margin-left: 15px;
+            h2 {          
+                color: @menuTextColor;                                                      
+                margin-top: 50px;
+                padding: 5px;
+            }
+        }
+    }
+    .titleContainerSolid {
+        background-color: @menuColor !important;
+        height: 75px;
+        .left-title {
+            h2 {                                
+                margin-top: 25px;                                
+                padding: 0px;
+            }
+        }        
+    }
+    .contentContainer{
+        padding-top: 200px;
+        .appContainer{
+            #floatContainer;
+        }
+    }
 }

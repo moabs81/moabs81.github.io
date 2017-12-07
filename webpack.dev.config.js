@@ -31,8 +31,8 @@ module.exports = {
                 test: /\.(jpg|jpeg|png|svg)$/,
                 use: {
                     loader: 'file-loader'
-                },
-                include: path.join(__dirname, 'src/imgs/')
+                }
+                //include: path.join(__dirname, 'src/imgs/')
             },
             {
                 test: /\.less$/,

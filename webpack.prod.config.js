@@ -16,14 +16,14 @@ module.exports = {
                     loader: 'babel-loader'
                 }
             },
-            {
+            /*{
                 test: /\.es6$/,
                 exclude: /node_modules/,
                 loader: 'babel-loader',
                 query: {
                     presets: ['es2015']
                 }
-            },
+            },*/
             {
                 test: /\.(jpg|jpeg|png|svg)$/,
                 use: {
