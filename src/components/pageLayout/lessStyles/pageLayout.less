@@ -2,20 +2,22 @@
 @menuColor: #009DB4;
 @menuColor1: #663818;
 @menuTextColor: #E3C286;
-@floatDivColor : rgba(255, 255, 255, 0.45);
+//@floatDivColor : rgba(255, 255, 255, 0.45);
+@floatDivColor : rgba(0, 0, 0, 0.45);
 #menuTransition() {
+    transition: 0.3s;
     -webkit-transition: 0.3s;
-}
-
-#backgroundImg() {
-    background-image: url('./imgs/darkbackground.jpg');
-    background-attachment: fixed;
-    background-position: right top;
 }
 
 #parallaxBackgroundImg() {
     background-image: url('./imgs/woodFloor.jpg');
     background-repeat: repeat;
+}
+
+#IE11FallbackBackground(){
+    background-image: url('./imgs/paint2.jpg');
+    background-attachment: fixed;
+    background-position: right top;
 }
 
 #floatContainer() {
@@ -33,6 +35,8 @@
 
 //parallax mixins
 #parallaxClass() {
+    -webkit-perspective: 1px;
+    -webkit-perspective-origin: 0 0;
     perspective: 1px;
     perspective-origin: 0 0;
     height: 100vh;
@@ -49,16 +53,22 @@
 }
 
 #background() {
+    -ms-transform-origin: 0 0;
+    -webkit-transform-origin: 0 0;
     transform-origin: 0 0;
-    transform: translateZ(-9px) scale(11);
+    -ms-transform: translateZ(-9px) scale(17);
+    -webkit-transform: translateZ(-9px) scale(17);
+    transform: translateZ(-9px) scale(17);
     img {
         display: block;
-        width: 100%;
-        height: auto;
+        width: 100%;                
+        //height: auto !important;        
     }
 }
 
 #foreground() {
+    -ms-transform: translateZ(0);
+    -webkit-transform: translateZ(0);
     transform: translateZ(0);
 }
 
@@ -89,7 +99,7 @@ body {
         height: 75px;
         .menu {
             background-color: @menuColor !important;
-            margin-right: 15px;
+            margin-right: 17px;
             .left-title {
                 h2 {
                     color: @menuTextColor;
@@ -116,4 +126,7 @@ body {
             }
         }
     }
+}
+.IEFallback{
+    #IE11FallbackBackground;
 }
