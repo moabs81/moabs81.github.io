@@ -57,8 +57,7 @@
         }
         .tBodyContentRow {
             display: none;
-            padding: 20px; //padding-top: 30px;
-            //padding-bottom: 30px;
+            padding: 20px; 
             .tBodyCol1Title {
                 font-weight: bold;
             }
@@ -70,17 +69,12 @@
             text-align: center;
             #getMoreButton {
                 #moreButton;
-                background-color: rgb(182, 164, 59);
-                /*span{
-                    position: absolute;
-                    display: block;                                        
-                    width: 0;
-                    height: 0;
-                    border-left: 20px solid rgb(182, 164, 59);
-                    border-right: 20px solid rgb(182, 164, 59);
-                    border-top: 20px solid #f1f1f1;
-                }*/
+                background-color: rgb(182, 164, 59);           
+                transition: transform 0.3s;                     
             }
-        }
+            #getMoreButton:hover{                
+                transform: perspective(50px) translateZ(-10px);
+            }
+        }        
     }
 }

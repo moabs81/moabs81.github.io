@@ -6,7 +6,6 @@ exports.pageLayout = function() {
             $('.contentContainer').append('<div class="appContainer" id="bddAppContainer"></div>');
             document.getElementById('allContentDiv').onscroll = function(e) {
                 var viewPort = document.getElementById('contentContainer').getBoundingClientRect();
-                console.log(viewPort);
                 if (viewPort.top < 140) {
                     $('.titleContainer').addClass('titleContainerSolid');
                 } else {
