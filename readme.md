@@ -2,7 +2,7 @@ This project is a simple functional mock up of a conceptual component for a smal
 
 Compoments
     Page Layout Component - /src/components/pageLayout
-        Page Layout is esssentially a wrapper for the presentation of the component
+        Page Layout is esssentially a wrapper for the presentation of the component. It is a workbench of sorts that I've been working on for a bit as place to put components to showcase, in this case the server reviews component
     App Component - /src/components/serverReviewsComponent
         Contained within page's contentContainer div
     
@@ -16,8 +16,6 @@ Test Data is found in /src/testData
 1DistServer.js is a simple Node based server with baked-in routes for serving this project from a local dev environment. Don't overthink that :) 
 
 index.html at the root is a path for the Github free hosting to get to /dist
-
-I did write the webpack configurations myself and at the time I was really proud of that...
 
 Future enhancements as of 12/7/2017 include:
 -	completion of sort functions
