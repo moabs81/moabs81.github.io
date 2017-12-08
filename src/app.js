@@ -3,10 +3,10 @@ const pageLayoutMod = require('./components/pageLayout/jsModules/pageLayout'),
     pageLayout = pageLayoutMod.pageLayout();
 const controlViewStateMod = require('./components/serverReviewsComponent/jsModules/controlVIewState'),
     controller = controlViewStateMod.controller();
-
-pageLayout.buildTableComponent(function(result) {
+import tile from './components/pageLayout/lessStyles/imgs/cardboardTexture.jpg';
+pageLayout.buildTableComponent(tile, function (result) {
     if (result == 'bddAppContainer') {
-        controller.setInitialState(result, function(result) {
+        controller.setInitialState(result, function (result) {
             console.log(result + ' with building application');
         });
     } else {

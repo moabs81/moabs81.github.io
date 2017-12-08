@@ -1,12 +1,15 @@
 'use strict';
 require('../lessStyles/pageLayout.less');
-exports.pageLayout = function() {
-    const buildTableComponent = function(cbReturn) {
-        $(function() {
+exports.pageLayout = function () {
+    const buildTableComponent = function (tile, cbReturn) {
+        $(function () {
+            var backgroundImg = document.getElementById('backgroundImg');
+            backgroundImg.src = tile;
             $('.contentContainer').append('<div class="appContainer" id="bddAppContainer"></div>');
-            window.onscroll = function(e) {
+            document.getElementById('allContentDiv').onscroll = function (e) {
                 var viewPort = document.getElementById('contentContainer').getBoundingClientRect();
-                if (viewPort.top < -50) {
+                console.log(viewPort);
+                if (viewPort.top < 140) {
                     $('.titleContainer').addClass('titleContainerSolid');
                 } else {
                     $('.titleContainer').removeClass('titleContainerSolid');
@@ -19,4 +22,4 @@ exports.pageLayout = function() {
         buildTableComponent: buildTableComponent
     };
     return returnMethods;
-}
+};
